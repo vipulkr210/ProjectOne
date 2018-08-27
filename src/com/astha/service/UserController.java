@@ -36,7 +36,7 @@ public class UserController  extends HttpServlet{
 			resp.sendRedirect("index.jsp?message="+status);
 		}
 		
-		if(access !=null && access.equals("register" )) {
+		if(access !=null && access.equals("login" )) {
 			User login = new User(email, password, username);
 			 
 			us.loginUser(login);

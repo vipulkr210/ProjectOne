@@ -16,6 +16,7 @@
 					<h3>Login</h3>
 					<%if(request.getParameter("message") != null && request.getParameter("message").equals("1")){ %><span class="message">Registered Succesfully</span> <br><br><%} %>
 					<div class="mail">
+						<input type="hidden" name="access" value="login">
 						<input type="mail" name="email">
 						<label>Mail or Username</label>
 					</div>
