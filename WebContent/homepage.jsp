@@ -3,60 +3,23 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <div class="body">
 		<div class="veen">
-			<div class="login-btn splits">
-				<p>Already an user?</p>
-				<button class="active">Login</button>
+			<div class="login-btn splits" style="width:200px;height:100px">
+				
+				<button class="active">Welcome User</button>
 			</div>
 			<div class="rgstr-btn splits">
-				<p>Don't have an account?</p>
-				<button>Register</button>
+				
+				<button>Companies</button>
 			</div>
 			<div class="wrapper">
 				<form id="login" tabindex="500" action="login" method="post">
-					<h3>Login</h3>
-					<%if(request.getParameter("message") != null && request.getParameter("message").equals("1")){ %><span class="message">Registered Succesfully</span> <br><br><%} %>
-					<div class="mail">
-						<input type="mail" name="email">
-						<label>Mail or Username</label>
-					</div>
-					<div class="passwd">
-						<input type="password" name="password">
-						<label>Password</label>
-					</div>
-					<div class="submit">
-						<button class="dark">Login</button>
-					</div>
+					<h3>Welcome User</h3>
+					
+					
 				</form>
 				<form id="register" tabindex="502" action="register" method="post">
-					<br><br><h3>Register</h3>
-					<div class="name">
-						<input type="hidden" name="access" value="register">
-						<input type="text" name="name">
-						<label>Full Name</label>
-					</div>
-					<div class="mail">
-						<input type="mail" name="email">
-						<label>Email</label>
-					</div>
-					<div class="uid">
-						<input type="text" name="username">
-						<label>User Name</label>
-					</div>
-					<div class="mobile">
-						<input type="text" name="mobile">
-						<label>Mobile</label>
-					</div>
-					<div class="role">
-						<input type="text" name="role">
-						<label>Role</label>
-					</div>
-					<div class="passwd">
-						<input type="password" name="password">
-						<label>Password</label>
-					</div>
-					<div class="submit">
-						<input type="submit" value="Register">
-					</div>
+					<br><br><h3>Companies</h3>
+					
 				</form>
 			</div>
 		</div>	
