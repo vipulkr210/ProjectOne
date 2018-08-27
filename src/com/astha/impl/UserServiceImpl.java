@@ -11,7 +11,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int registerUser(User register) {
 		System.out.println(register.toString());
-		
+		register.setUserId(UUID.randomUUID());
+		System.out.println(register.getUserId());
 		return 1;
 	}
 
