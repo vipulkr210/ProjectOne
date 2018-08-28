@@ -68,7 +68,6 @@ $(document).ready(function(){
 		}
 		.veen button{
 			background: transparent;
-			//background-image: linear-gradient(90deg, #e0b722, #ff4931);
 			display: inline-block;
 			padding: 10px 30px;
 			border: 3px solid #fff;
@@ -76,7 +75,6 @@ $(document).ready(function(){
 			background-clip: padding-box;
 			position: relative;
 			color: #FFF;
-			//box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
 			transition: all .25s;
 		}
 		.veen button.dark{
@@ -160,7 +158,7 @@ $(document).ready(function(){
 			border: solid 1px #999;
 		}
 .veen .wrapper input{
-			height: 40px
+			height: 40px;
 			padding: 5px 15px;
 			width: 100%;
 			border: solid 1px #999;
