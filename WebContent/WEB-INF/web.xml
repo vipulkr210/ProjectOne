@@ -9,6 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+	<servlet-name>createCompany</servlet-name>
+  	<servlet-class>com.astha.service.CompanyController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>createCompany</servlet-name>
+  	<url-pattern>/createCompany</url-pattern>
+  </servlet-mapping>
   <servlet>
 	<servlet-name>login</servlet-name>
   	<servlet-class>com.astha.service.UserController</servlet-class>

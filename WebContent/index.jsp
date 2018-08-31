@@ -48,7 +48,9 @@
 						<label>Mobile</label>
 					</div>
 					<div class="role">
-						<input type="text" name="role">
+                                            <select name="role">
+                                                <option value="IT_ADMIN">IT_ADMIN</option>
+                                                <option value="IT_USER_NORMAL">IT_USER_NORMAL</option></select>
 						<label>Role</label>
 					</div>
 					<div class="passwd">

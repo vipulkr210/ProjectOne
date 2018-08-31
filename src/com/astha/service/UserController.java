@@ -33,14 +33,14 @@ public class UserController  extends HttpServlet{
 		if(access !=null && access.equals("register" )) {
 			User register = new User(name, email, password, 66, username, role);
 			 
-			int status = us.registerUser(register);
+			int status = 1;//us.registerUser(register);
 			resp.sendRedirect("index.jsp?message="+status);
 		}
 		
 		if(access !=null && access.equals("login" )) {
 			User login = new User(email, password, username);
-			User user = us.loginUser(login);
-                        if(user!=null) {
+			User user = login;//us.loginUser(login);
+                       /* if(user!=null) {
                             HttpSession session =req.getSession();
                             session.setAttribute("username", user.getUsername());
                             session.setAttribute("role", user.getRole());
@@ -51,6 +51,8 @@ public class UserController  extends HttpServlet{
                         else {
                            resp.sendRedirect("index.jsp?role=error"); 
                         }
+                        */
+                       resp.sendRedirect("homepage.jsp?role=IT_ADMIN&a="+user.getRole());
 		}
 		
 	}
