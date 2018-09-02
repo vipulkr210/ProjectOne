@@ -1,5 +1,6 @@
 package com.astha.service;
 
+import com.astha.entity.Company;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -7,10 +8,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.astha.entity.User;
+import com.astha.entity.Users;
+import com.astha.impl.CompanyServiceImpl;
 import com.astha.impl.UserServiceImpl;
+import java.util.Iterator;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
 
+@WebServlet("/user")
 public class UserController  extends HttpServlet{
 
 	UserServiceImpl us = new UserServiceImpl() ;
@@ -28,32 +35,56 @@ public class UserController  extends HttpServlet{
 		String password = req.getParameter("password");
 		String mobile = req.getParameter("mobile");
 		String username = req.getParameter("username");
-		String role = req.getParameter("role");
-		System.out.println(access+name+ email+ password+ mobile+username+role);
+		String roles = req.getParameter("roles");
+                String companyId = req.getParameter("companyId");
+        	System.out.println(access+name+ email+ password+ mobile+username+roles);
 		if(access !=null && access.equals("register" )) {
-			User register = new User(name, email, password, 66, username, role);
-			 
-			int status = 1;//us.registerUser(register);
-			resp.sendRedirect("index.jsp?message="+status);
+                    Users register = new Users(name, email, password, 66, username, roles);
+                    int status = us.registerUser(register);
+                    resp.sendRedirect("index.jsp?message="+status);
 		}
 		
 		if(access !=null && access.equals("login" )) {
-			User login = new User(email, password, username);
-			User user = login;//us.loginUser(login);
-                       /* if(user!=null) {
-                            HttpSession session =req.getSession();
-                            session.setAttribute("username", user.getUsername());
-                            session.setAttribute("role", user.getRole());
-                            session.setAttribute("name", user.getName());
-                            
-			resp.sendRedirect("homepage.jsp?role="+user.getRole());
+                    Users login = new Users(email, password, username);
+                     System.out.println("gjgghj "+login.getEmail());
+                    List<Users> user = us.loginUser(login);
+                    if(user != null) {
+                      String role="";
+                      HttpSession session =req.getSession();
+                        Iterator it = user.listIterator();
+                        while(it.hasNext()){
+                           Users u =(Users)it.next();
+                        session.setAttribute("username", u.getUsername());
+                        session.setAttribute("role", u.getRole());
+                        session.setAttribute("name", u.getName());
+                        session.setAttribute("userId", u.getUserId());
+                        role=u.getRole();
                         }
-                        else {
-                           resp.sendRedirect("index.jsp?role=error"); 
-                        }
-                        */
-                       resp.sendRedirect("homepage.jsp?role=IT_ADMIN&a="+user.getRole());
+                    resp.sendRedirect("homepage.jsp?role="+role);
+                    }
+                    else {
+                       resp.sendRedirect("index.jsp?role=error"); 
+                    }
+               // resp.sendRedirect("homepage.jsp?role=IT_ADMIN&a="+user.getRole());
 		}
+                if(access !=null && access.equals("approve" )) {
+                    us.approveCompany(Integer.parseInt(companyId));
+                    RequestDispatcher rd = req.getRequestDispatcher("homepage.jsp");
+                    rd.forward(req, resp);
+                }
+                 if(access !=null && access.equals("listCompany" )) {
+                     List<Company> list = us.listAllCompany();
+                     req.setAttribute("allCompany", list);
+                    RequestDispatcher rd = req.getRequestDispatcher("homepage.jsp");
+                    rd.forward(req, resp);
+                }
+                 if(access !=null && access.equals("logout" )) {
+                     req.removeAttribute("role");
+                     req.removeAttribute("username");
+                     req.removeAttribute("name");
+                    resp.sendRedirect("index.jsp");
+                    
+                }
 		
 	}
 	

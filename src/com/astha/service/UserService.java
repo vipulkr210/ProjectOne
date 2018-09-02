@@ -3,18 +3,20 @@
  */
 package com.astha.service;
 
+import com.astha.entity.Company;
 import java.util.List;
-import java.util.UUID;
-
-import com.astha.entity.User;
+import com.astha.entity.Users;
 
 public interface UserService {
 
-	public User loginUser(User register);
-	public int registerUser(User register);
-	public void editUser(UUID userId, User user);
-	public void deleteUser(UUID userId);
-	public List<User> listUser();
-        public String getUserType(UUID userId);
+    public List<Users> loginUser(Users register);
+    public int registerUser(Users register);
+    public void editUser(int userId, Users user);
+    public void deleteUser(int userId);
+    public List<Users> listUser();
+    public String getUserType(int userId);
+    public String approveCompany(int id);
+    public List<Company> listAllCompany();
+    
 	
 }

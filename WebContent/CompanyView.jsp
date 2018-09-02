@@ -5,41 +5,61 @@
 <%@taglib prefix="v" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="x" uri="http://java.sun.com/jsp/jstl/functions" %>
         <div class="body">
-		<div class="veen">
-			<div class="login-btn splits" style="width:200px;height:100px">
+		<center>
+		<div class="submit">
+                    <form action="homepage.jsp"><input type="submit" value="ADD Company">
+                        </div>	</form>
+                    <div class="submit">
+                    <form action="user">
+                        <input type="submit" value="LOGOUT">
+                        
+        <input type="hidden" name="access" value="logout">	</form>
+                   </div>
+                    
+        <div class="wrapper" style="width: 60%;">
+	   <center> <table id="register"  style="align-content: center;width:60%;border:1px solid;" tabindex="0" style="margin-left: 0px">
+             <tr ><td>S.no</td><td>Company Name</td><td>Created By</td>
+                    <td>Company Address</td><td>Actions</td><td>Actions</td><td>Actions</td></tr>
+               <v:forEach items="${list}" var="c">
 
-                            
-                                <button class="active" >Add Company</button>
-			</div>
-                    <div class="wrapper" style="width: 500px;">
-				<form id="login" tabindex="500" action="company" method="post">
-					<h3>Add Company</h3>
-					<div class="uid">
-						<input type="text" name="cName">
-                                                <input type="hidden" name="access" value="register">
-						<label>Company Name</label>
-					</div>
-                                        <div class="uid">
-						<input type="text" name="address">
-						<label>Company Address</label>
-					</div>
-                                        <div class="uid">
-                                            <input type="text" name="createdBy" <%if(session.getAttribute("role") != null && session.getAttribute("role").equals("IT_ADMIN")){%> value="<%=session.getAttribute("role")%>" readonly="readonly"<%}%>>
-						<label>Created By</label>
-					</div>
-					<div class="submit">
-						<input type="submit" value="Register">
-					</div>
-				</form>
-                      
-                    </div>
-                </div>                              
-                                                
-      	
+                <tr style="border:1px solid;padding: 10px;margin: 5px;"><td>${c.companyId}</td><td>${c.cName}</td><td>${c.createdBy}</td><td>${c.address}</td>
+                    <td>
+                        <form id="s" tabindex="502" action="company" method="post" >
+                            <input type="hidden" name="access" value="editCompany">
+                            <input type="hidden" name="companyId" value="${c.companyId}">
+                            <div class="submit">
+                    <input type="submit" value="Edit">
+                        </div>
+                        </form></td>
+                        <td>
+                       <form id="f" tabindex="502" action="company" method="post" >
+                           <input type="hidden" name="access" value="deleteCompany" >
+                            <input type="hidden" name="companyId" value="${c.companyId}">
+                          <div class="submit"><input type="submit" value="Delete">
+                            </div></form></td><td>
+                                <% if(session.getAttribute("role").equals("IT_ADMIN")){%>  <form id="d" tabindex="502" action="user" method="post" >
+                          <input type="hidden" name="access" value="approve">
+                            <input type="hidden" name="companyId" value="${c.companyId}">
+                        <div class="submit"><input type="submit" value="Approve">
+                        </div></form><%}%></td>
+                </tr>
+
+            </v:forEach>   
+            </table>
+       </div>
+</center>
+			
 	</div>
 
 <<script type="text/javascript">
-
+function pop() {
+    var popup = document.getElementById('myPopup');
+    popup.classList.toggle('show');
+}
+function push() {
+    var popup = document.getElementById('myPopup');
+    popup.classList.toggle('hide');
+}
 $(document).ready(function(){
 	$(".veen .rgstr-btn button").click(function(){
 		$('.veen .wrapper').addClass('move');

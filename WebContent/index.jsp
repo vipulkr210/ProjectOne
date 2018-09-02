@@ -12,7 +12,7 @@
 				<button>Register</button>
 			</div>
 			<div class="wrapper">
-				<form id="login" tabindex="500" action="login" method="post">
+				<form id="login" tabindex="500" action="user" method="post">
 					<h3>Login</h3>
 					<%if(request.getParameter("message") != null && request.getParameter("message").equals("1")){ %><span class="message">Registered Succesfully</span> <br><br><%} %>
 					<div class="mail">
@@ -28,7 +28,7 @@
 						<button class="dark">Login</button>
 					</div>
 				</form>
-				<form id="register" tabindex="502" action="register" method="post">
+				<form id="register" tabindex="502" action="user" method="post">
 					<br><br><h3>Register</h3>
 					<div class="name">
 						<input type="hidden" name="access" value="register">
@@ -48,7 +48,7 @@
 						<label>Mobile</label>
 					</div>
 					<div class="role">
-                                            <select name="role">
+                                            <select name="roles">
                                                 <option value="IT_ADMIN">IT_ADMIN</option>
                                                 <option value="IT_USER_NORMAL">IT_USER_NORMAL</option></select>
 						<label>Role</label>

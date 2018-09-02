@@ -25,6 +25,10 @@ public class Company {
     private String address;
     private String createdBy;
     private int approved;
+    private int userId;
+
+    public Company() {
+    }
 
     public Company(int companyId, String cName, String address, String createdBy, int approved) {
         this.companyId = companyId;
@@ -34,11 +38,24 @@ public class Company {
         this.approved = approved;
     }
 
-    public Company(String cName, String address, String createdBy, int approved) {
+    public Company(String cName, String address, String createdBy, int approved, int userId) {
         this.cName = cName;
         this.address = address;
         this.createdBy = createdBy;
         this.approved = approved;
+        this.userId = userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public Company(int userId) {
+        this.userId = userId;
     }
 
     public void setApproved(int approved) {
