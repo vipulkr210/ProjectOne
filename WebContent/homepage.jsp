@@ -4,28 +4,80 @@
 <div class="body">
 		<div class="veen">
 			<div class="login-btn splits" style="width:200px;height:100px">
-				
-				<button class="active">Welcome User</button>
+				<!--<button onclick="pop()">Click</button>
+                                <div class="popup">
+                        <span class="popuptext" id="myPopup"><h3>Edit Company</h3>
+                            <form id="login" tabindex="500" action="createCompany" method="post">
+                                    <pre>
+                                    Company Name :     <input type="text" name="cname">
+                                    Company Address:   <input type="text" name="cAddress">
+                                    Created By:        <input type="text" name="createdBy">
+        
+                                <button value="Cancel" onclick="submit()">Register</button>
+                                <button value="Cancel" onclick="push()">Cancel</button>
+                                </pre>
+                             </span>
+                             </div> -->
+                            
+                                <button class="active" >Add Company</button>
 			</div>
 			<div class="rgstr-btn splits">
 				
 				<button>Companies</button>
 			</div>
 			<div class="wrapper">
-				<form id="login" tabindex="500" action="login" method="post">
-					<h3>Welcome User</h3>
-					
-					
+				<form id="login" tabindex="500" action="createCompany" method="post">
+					<h3>Edit Company</h3>
+					<div class="uid">
+						<input type="text" name="cname">
+						<label>Company Name</label>
+					</div>
+                                        <div class="uid">
+						<input type="text" name="address">
+						<label>Company Address</label>
+					</div>
+                                        <div class="uid">
+                                            <input type="text" name="createdBy" <%if(request.getParameter("role") != null && request.getParameter("role").equals("IT_ADMIN")){%> value="<%=request.getParameter("role")%>" readonly="readonly"<%}%>>
+						<label>Created By</label>
+					</div>
+					<div class="submit">
+						<input type="submit" value="Register">
+					</div>
 				</form>
-				<form id="register" tabindex="502" action="register" method="post">
-					<br><br><h3>Companies</h3>
-					
-				</form>
+				
+					<h3>Companies</h3>
+                                        <table id="register" tabindex="0" style="margin-top: -400px"> <tr><td>S.no</td><td>Company Name</td><td>Created By</td><td>Company Address</td><td>Actions</td></tr>
+                                            <tr><td>S.no</td><td>Company Name</td><td>Created By</td><td>Company Address</td><td>
+                                                    <form id="register" tabindex="502" action="register" method="post" >
+                                                        <div class="submit">
+						<input type="submit" value="Edit">
+                                                    </div>
+                                                    </form>
+                                                   <!-- <form id="register" tabindex="502" action="register" method="post"><div class="submit">
+						<input type="submit" value="Delete">
+                                                    </div></form>
+                                                    <form id="register" tabindex="502" action="register" method="post"><div class="submit">
+						<input type="submit" value="Approve">
+                                                    </div></form>--></td></tr>
+                                            <tr><td>S.no</td><td>Company Name</td><td>Created By</td><td>Company Address</td><td>Actions</td></tr>
+                                            <tr><td>S.no</td><td>Company Name</td><td>Created By</td><td>Company Address</td><td>Actions</td></tr>
+                                            
+                                            
+                                        </table>
+				
 			</div>
 		</div>	
 	</div>
 
 <<script type="text/javascript">
+function pop() {
+    var popup = document.getElementById('myPopup');
+    popup.classList.toggle('show');
+}
+function push() {
+    var popup = document.getElementById('myPopup');
+    popup.classList.toggle('hide');
+}
 $(document).ready(function(){
 	$(".veen .rgstr-btn button").click(function(){
 		$('.veen .wrapper').addClass('move');
@@ -46,6 +98,32 @@ $(document).ready(function(){
 //-->
 </script>
 	<style type="text/css">
+            
+            .popup {
+    display: inline-table;
+}
+.popup .popuptext {
+    visibility: hidden;
+    width: 400px;
+    background-color: #fff;
+    color:#000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 20px;
+    position:relative;
+    top:-100px;
+    right:150px;
+}
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+.popup .hide {
+    visibility: collapse;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
 	.body{
 			background: #ff4931;
 			transition: all .5s;
@@ -68,7 +146,6 @@ $(document).ready(function(){
 		}
 		.veen button{
 			background: transparent;
-			//background-image: linear-gradient(90deg, #e0b722, #ff4931);
 			display: inline-block;
 			padding: 10px 30px;
 			border: 3px solid #fff;
@@ -76,7 +153,6 @@ $(document).ready(function(){
 			background-clip: padding-box;
 			position: relative;
 			color: #FFF;
-			//box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
 			transition: all .25s;
 		}
 		.veen button.dark{
@@ -160,7 +236,7 @@ $(document).ready(function(){
 			border: solid 1px #999;
 		}
 .veen .wrapper input{
-			height: 40px
+			height: 40px;
 			padding: 5px 15px;
 			width: 100%;
 			border: solid 1px #999;

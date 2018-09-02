@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.astha.entity.User;
 import com.astha.impl.UserServiceImpl;
+import javax.servlet.http.HttpSession;
 
 public class UserController  extends HttpServlet{
 
@@ -32,15 +33,26 @@ public class UserController  extends HttpServlet{
 		if(access !=null && access.equals("register" )) {
 			User register = new User(name, email, password, 66, username, role);
 			 
-			int status = us.registerUser(register);
+			int status = 1;//us.registerUser(register);
 			resp.sendRedirect("index.jsp?message="+status);
 		}
 		
 		if(access !=null && access.equals("login" )) {
 			User login = new User(email, password, username);
-			 
-			us.loginUser(login);
-			resp.sendRedirect("homepage.jsp");
+			User user = login;//us.loginUser(login);
+                       /* if(user!=null) {
+                            HttpSession session =req.getSession();
+                            session.setAttribute("username", user.getUsername());
+                            session.setAttribute("role", user.getRole());
+                            session.setAttribute("name", user.getName());
+                            
+			resp.sendRedirect("homepage.jsp?role="+user.getRole());
+                        }
+                        else {
+                           resp.sendRedirect("index.jsp?role=error"); 
+                        }
+                        */
+                       resp.sendRedirect("homepage.jsp?role=IT_ADMIN&a="+user.getRole());
 		}
 		
 	}
