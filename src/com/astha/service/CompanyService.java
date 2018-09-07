@@ -13,10 +13,10 @@ import java.util.List;
  * @author Astha
  */
 public interface CompanyService {
-    public String editCompany(int id, Company company);
+    public String editCompany(Company company);
     public int createCompany(Company company);
     public String deleteCompany(int id);
-    public List<Company> listCompany();
+    public List<Company> listCompany(int userId);
     
     
 }

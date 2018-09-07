@@ -1,64 +1,32 @@
 <script  src="https://code.jquery.com/jquery-3.1.1.min.js"  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="  crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" ></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<div class="body">
+		<div class="veen">
+                <div class="wrapper">
 
-<%@taglib prefix="v" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="x" uri="http://java.sun.com/jsp/jstl/functions" %>
-        <div class="body">
-		<center>
-		<div class="submit">
-                   <%if(session.getAttribute("role") != null && session.getAttribute("role").equals("IT_ADMIN")){%>
-                   <form action="user">
-                        <input type="hidden" name="access" value="listCompany">
-                        <input type="submit" value="View Company">
-                    </form>
-                        <%} else {%>
-                         <form action="company">
-                        <input type="hidden" name="access" value="getCompany">
-                        <input type="submit" value="View Company">
-                    </form>
-                        <%}%>
-                </div>
-                <div class="submit">
-                    <form action="user">
-                        <input type="submit" value="LOGOUT">
-                        <input type="hidden" name="access" value="logout">
-                    </form>
-                </div><div class="veen">
-			<div class="login-btn splits" style="width:200px;height:100px">
-
+                    <form id="register" tabindex="502" action="company" method="post">
+                        <br><br><h3>Edit Company</h3>
+                        <input type="hidden" name="access" value="editCompany">
+                        <input type="hidden" name="companyId" value="<%=request.getParameter("companyId")%>">
                             
-                                <button class="active" >Add Company</button>
-			</div>
-                    <div class="wrapper" style="width: 500px;">
-				<form id="login" tabindex="500" action="company" method="post">
-					<h3>Add Company</h3>
-					<div class="uid">
-						<input type="text" name="cName">
-                                                <input type="hidden" name="access" value="register">
-						<label>Company Name</label>
-					</div>
-                                        <div class="uid">
-						<input type="text" name="address">
-						<label>Company Address</label>
-					</div>
-                                        <div class="uid">
-                                            <input type="text" name="createdBy" <%if(session.getAttribute("role") != null && session.getAttribute("role").equals("IT_ADMIN")){%> value="<%=session.getAttribute("role")%>" readonly="readonly"<%} else {%> value="<%=session.getAttribute("name")%>"<%}%>>
-						<label>Created By</label>
-					</div>
-					<div class="submit">
-						<input type="submit" value="Register">
-					</div>
-				</form>
-                      
-                    </div>
-                </div>                              
-                                                
-      	
+                        <div class="uid">
+                                <input type="text" name="cName" value="<%=request.getParameter("cName")%>">
+                                <label>Company Name</label>
+                        </div>
+                        <div class="uid">
+                            <input type="text" name="address" value="<%=request.getParameter("address")%>">
+                                <label>Company Address</label>
+                        </div>
+                        <div class="submit">
+                                <input type="submit" value="EDIT">
+                        </div>
+                    </form>
+                </div>
+		</div>	
 	</div>
 
 <<script type="text/javascript">
-console.info("hii");
 $(document).ready(function(){
 	$(".veen .rgstr-btn button").click(function(){
 		$('.veen .wrapper').addClass('move');
@@ -79,32 +47,6 @@ $(document).ready(function(){
 //-->
 </script>
 	<style type="text/css">
-            
-            .popup {
-    display: inline-table;
-}
-.popup .popuptext {
-    visibility: hidden;
-    width: 400px;
-    background-color: #fff;
-    color:#000;
-    text-align: center;
-    border-radius: 6px;
-    padding: 20px;
-    position:relative;
-    top:-100px;
-    right:150px;
-}
-.popup .show {
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
-}
-.popup .hide {
-    visibility: collapse;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
-}
 	.body{
 			background: #ff4931;
 			transition: all .5s;

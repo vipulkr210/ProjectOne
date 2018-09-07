@@ -21,10 +21,12 @@ import org.hibernate.criterion.Restrictions;
 public class CompanyServiceImpl implements CompanyService{
 
     @Override
-    public String editCompany(int id, Company company) {
+    public String editCompany(Company c) {
      Session ses = Connection.getSessionFactory().openSession();
-        company = (Company)ses.get(Company.class, id);
+       Company company = (Company)ses.get(Company.class, c.getCompanyId());
         Transaction tr = ses.beginTransaction();
+        company.setAddress(c.getAddress());
+        company.setcName(c.getcName());
         ses.update(company);
         tr.commit();
         ses.close();
@@ -60,10 +62,10 @@ public class CompanyServiceImpl implements CompanyService{
     }
     
     @Override
-    public List<Company> listCompany() {
+    public List<Company> listCompany(int userId) {
      Session ses = Connection.getSessionFactory().openSession();
         Criteria crit = ses.createCriteria(Company.class);
-        //crit.add(Restrictions.eqProperty("", otherPropertyName))
+        crit.add(Restrictions.eq("userId", userId));
         List<Company> list =crit.list();
         return list;
      }

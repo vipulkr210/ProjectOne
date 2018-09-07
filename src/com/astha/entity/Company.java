@@ -38,6 +38,12 @@ public class Company {
         this.approved = approved;
     }
 
+    public Company(int companyId, String cName, String address) {
+        this.companyId = companyId;
+        this.cName = cName;
+        this.address = address;
+    }
+
     public Company(String cName, String address, String createdBy, int approved, int userId) {
         this.cName = cName;
         this.address = address;

@@ -7,41 +7,60 @@
         <div class="body">
 		<center>
 		<div class="submit">
-                    <form action="homepage.jsp"><input type="submit" value="ADD Company">
-                        </div>	</form>
-                    <div class="submit">
+                    <form action="homepage.jsp">
+                        <input type="submit" value="ADD Company">
+                    </form>
+                </div>
+                <div class="submit">
                     <form action="user">
                         <input type="submit" value="LOGOUT">
-                        
-        <input type="hidden" name="access" value="logout">	</form>
-                   </div>
+                        <input type="hidden" name="access" value="logout">
+                    </form>
+                </div>
                     
         <div class="wrapper" style="width: 60%;">
 	   <center> <table id="register"  style="align-content: center;width:60%;border:1px solid;" tabindex="0" style="margin-left: 0px">
-             <tr ><td>S.no</td><td>Company Name</td><td>Created By</td>
-                    <td>Company Address</td><td>Actions</td><td>Actions</td><td>Actions</td></tr>
-               <v:forEach items="${list}" var="c">
+             <tr ><td>S.no</td>
+                 <td>Company Name</td>
+                 <td>Created By</td>
+                    <td>Company Address</td>
+                    <td>Actions</td>
+                    <td>Actions</td>
+                    <td>Actions</td>
+             </tr>
+             <v:forEach items="${list}" var="c" varStatus="s">
 
                 <tr style="border:1px solid;padding: 10px;margin: 5px;"><td>${c.companyId}</td><td>${c.cName}</td><td>${c.createdBy}</td><td>${c.address}</td>
                     <td>
-                        <form id="s" tabindex="502" action="company" method="post" >
-                            <input type="hidden" name="access" value="editCompany">
+                        <form id="s" tabindex="502" action="companyEdit.jsp" method="post" >
+                            <input type="hidden" name="cName" value="${c.cName}">
+                            <input type="hidden" name="address" value="${c.address}">
                             <input type="hidden" name="companyId" value="${c.companyId}">
                             <div class="submit">
-                    <input type="submit" value="Edit">
-                        </div>
-                        </form></td>
-                        <td>
+                            <input type="submit" value="Edit">
+                            </div>
+                        </form>
+                    </td>
+                    <td>
                        <form id="f" tabindex="502" action="company" method="post" >
-                           <input type="hidden" name="access" value="deleteCompany" >
+                            <input type="hidden" name="access" value="deleteCompany" >
                             <input type="hidden" name="companyId" value="${c.companyId}">
-                          <div class="submit"><input type="submit" value="Delete">
-                            </div></form></td><td>
-                                <% if(session.getAttribute("role").equals("IT_ADMIN")){%>  <form id="d" tabindex="502" action="user" method="post" >
-                          <input type="hidden" name="access" value="approve">
-                            <input type="hidden" name="companyId" value="${c.companyId}">
-                        <div class="submit"><input type="submit" value="Approve">
-                        </div></form><%}%></td>
+                            <div class="submit">
+                                <input type="submit" value="Delete">
+                            </div>
+                       </form>
+                        </td>
+                            <td>
+                                <% if(session.getAttribute("role").equals("IT_ADMIN")){%> 
+                                <form id="d" tabindex="502" action="user" method="post" >
+                                <input type="hidden" name="access" value="approve">
+                                <input type="hidden" name="companyId" value="${c.companyId}">
+                                <div class="submit">
+                                    <input type="submit" value="Approve">
+                                </div>
+                                </form>
+                                <%}%>
+                            </td>
                 </tr>
 
             </v:forEach>   

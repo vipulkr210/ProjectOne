@@ -46,27 +46,27 @@ public class UserController  extends HttpServlet{
 		
 		if(access !=null && access.equals("login" )) {
                     Users login = new Users(email, password, username);
-                     System.out.println("gjgghj "+login.getEmail());
-                    List<Users> user = us.loginUser(login);
-                    if(user != null) {
+                    // List<Users> user = us.loginUser(login);
+                    //if(user != null) {
                       String role="";
                       HttpSession session =req.getSession();
-                        Iterator it = user.listIterator();
-                        while(it.hasNext()){
-                           Users u =(Users)it.next();
-                        session.setAttribute("username", u.getUsername());
-                        session.setAttribute("role", u.getRole());
-                        session.setAttribute("name", u.getName());
-                        session.setAttribute("userId", u.getUserId());
-                        role=u.getRole();
-                        }
+                       // Iterator it = user.listIterator();
+                       // while(it.hasNext()){
+                        //   Users u =(Users)it.next();
+                        //session.setAttribute("username", u.getUsername());
+                       // session.setAttribute("role", u.getRole());
+                      //  session.setAttribute("name", u.getName());
+                      //  session.setAttribute("userId", u.getUserId());
+                      //  role=u.getRole();
+                       // }
+                       session.setAttribute("role", "IT_ADMIN");
+                       session.setAttribute("userId", 1);
                     resp.sendRedirect("homepage.jsp?role="+role);
-                    }
-                    else {
-                       resp.sendRedirect("index.jsp?role=error"); 
-                    }
-               // resp.sendRedirect("homepage.jsp?role=IT_ADMIN&a="+user.getRole());
-		}
+                  //  }
+                  //  else {
+                 //      resp.sendRedirect("index.jsp?role=error"); 
+                    //}
+               }
                 if(access !=null && access.equals("approve" )) {
                     us.approveCompany(Integer.parseInt(companyId));
                     RequestDispatcher rd = req.getRequestDispatcher("homepage.jsp");
@@ -79,11 +79,12 @@ public class UserController  extends HttpServlet{
                     rd.forward(req, resp);
                 }
                  if(access !=null && access.equals("logout" )) {
-                     req.removeAttribute("role");
-                     req.removeAttribute("username");
-                     req.removeAttribute("name");
-                    resp.sendRedirect("index.jsp");
-                    
+                   HttpSession session =req.getSession();
+                     session.removeAttribute("role");
+                     session.removeAttribute("username");
+                     session.removeAttribute("name");
+                     
+                     resp.sendRedirect("index.jsp");
                 }
 		
 	}

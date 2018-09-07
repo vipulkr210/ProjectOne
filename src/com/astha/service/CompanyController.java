@@ -32,51 +32,41 @@ public class CompanyController extends HttpServlet  {
         String address = req.getParameter("address");
         String createdBy = req.getParameter("createdBy");
         int approved = 0;
-        if(access !=null && access.equals("register" )) {
+        HttpSession sess= req.getSession();
+        String user = (String)sess.getAttribute("userID");
+            if(user != null) {
+            int userId = Integer.parseInt(user);
+            if(access !=null && access.equals("register" )) {
             if(createdBy.equals("IT_ADMIN")){
                 approved =1;
             }
-            HttpSession sess= req.getSession();
-	   Company company = new Company(cName, address, createdBy, approved, Integer.parseInt(sess.getAttribute("userID").toString()));
-           cimpl.createCompany(company);
-            resp.sendRedirect("company?access=getCompany");
+             Company company = new Company(cName, address, createdBy, approved, userId);
+             cimpl.createCompany(company);
+             resp.sendRedirect("company?access=getCompany");
+           }
            
-        }
-        if(access !=null && access.equals("getCompany" )) {
-	    List<Company> list = cimpl.listCompany();
+            if(access !=null && access.equals("getCompany" )) {
+	    List<Company> list = cimpl.listCompany(userId);
             req.setAttribute("list", list);
             RequestDispatcher rd = req.getRequestDispatcher("CompanyView.jsp");
             rd.forward(req, resp);
-        }
-        if(access !=null && access.equals("editCompany" )) {
-              HttpSession sess= req.getSession();
-	   Company company = new Company(cName, address, createdBy, 0 ,Integer.parseInt(sess.getAttribute("userID").toString()));
-           cimpl.editCompany(Integer.parseInt(companyId), company);
+            }
+            
+            if(access !=null && access.equals("editCompany")) {
+            Company company = new Company(Integer.parseInt(companyId),cName, address);
+            cimpl.editCompany(company);
+            resp.sendRedirect("company?access=getCompany");
+            }
+            
+            if(access !=null && access.equals("deleteCompany" )) {
+            cimpl.deleteCompany(Integer.parseInt(companyId));
             resp.sendRedirect("company?access=getCompany");
            }
-        if(access !=null && access.equals("deleteCompany" )) {
-            System.out.println(companyId);
-            try{
-	  cimpl.deleteCompany(Integer.parseInt(companyId));
-            }catch(NumberFormatException ne ){ne.printStackTrace();
-                
-            }
-          resp.sendRedirect("company?access=getCompany");
-           }
-        
-        
-        
-            
-            
-    
+        }   
     }
 
-    
-    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 }
