@@ -7,12 +7,12 @@
         <div class="body">
 		<center>
 		<div class="submit">
-                    <form action="homepage.jsp">
+                    <form action="homepage.jsp" method="post">
                         <input type="submit" value="ADD Company">
                     </form>
                 </div>
                 <div class="submit">
-                    <form action="user">
+                    <form action="user" method="post">
                         <input type="submit" value="LOGOUT">
                         <input type="hidden" name="access" value="logout">
                     </form>

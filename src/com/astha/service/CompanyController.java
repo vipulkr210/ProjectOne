@@ -33,8 +33,10 @@ public class CompanyController extends HttpServlet  {
         String createdBy = req.getParameter("createdBy");
         int approved = 0;
         HttpSession sess= req.getSession();
-        String user = (String)sess.getAttribute("userID");
+        String user = (String)sess.getAttribute("userId");
+        System.out.println("USerID : "+user);
             if(user != null) {
+            System.out.println("USerID inside : "+user);
             int userId = Integer.parseInt(user);
             if(access !=null && access.equals("register" )) {
             if(createdBy.equals("IT_ADMIN")){

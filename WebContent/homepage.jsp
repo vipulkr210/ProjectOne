@@ -8,19 +8,19 @@
 		<center>
 		<div class="submit">
                    <%if(session.getAttribute("role") != null && session.getAttribute("role").equals("IT_ADMIN")){%>
-                   <form action="user">
+                   <form action="user" method="post">
                         <input type="hidden" name="access" value="listCompany">
                         <input type="submit" value="View Company">
                     </form>
                         <%} else {%>
-                         <form action="company">
+                        <form action="company" method="post">
                         <input type="hidden" name="access" value="getCompany">
                         <input type="submit" value="View Company">
                     </form>
                         <%}%>
                 </div>
-                <div class="submit">
-                    <form action="user">
+                <div class="submit" >
+                    <form action="user" method="post">
                         <input type="submit" value="LOGOUT">
                         <input type="hidden" name="access" value="logout">
                     </form>
@@ -33,10 +33,11 @@
                     <div class="wrapper" style="width: 500px;">
 				<form id="login" tabindex="500" action="company" method="post">
 					<h3>Add Company</h3>
-					<div class="uid">
+					<input type="hidden" name="access" value="register">
+					<input type="hidden" name="userId" value="<%=session.getAttribute("userId")%>">
+						<div class="uid">
 						<input type="text" name="cName">
-                                                <input type="hidden" name="access" value="register">
-						<label>Company Name</label>
+                                                <label>Company Name</label>
 					</div>
                                         <div class="uid">
 						<input type="text" name="address">
