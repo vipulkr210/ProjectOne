@@ -44,7 +44,9 @@
 						<label>Company Address</label>
 					</div>
                                         <div class="uid">
-                                            <input type="text" name="createdBy" <%if(session.getAttribute("role") != null && session.getAttribute("role").equals("IT_ADMIN")){%> value="<%=session.getAttribute("role")%>" readonly="readonly"<%} else {%> value="<%=session.getAttribute("name")%>"<%}%>>
+                                            <input type="text" name="createdBy" <%if(session.getAttribute("role") != null 
+                                                    && session.getAttribute("role").equals("IT_ADMIN")){%>
+                                                    value="<%=session.getAttribute("role")%>" readonly="readonly"<%} else {%> value="<%=session.getAttribute("name")%>"<%}%>>
 						<label>Created By</label>
 					</div>
 					<div class="submit">

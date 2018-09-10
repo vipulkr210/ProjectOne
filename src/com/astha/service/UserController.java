@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.astha.entity.Users;
 import com.astha.impl.CompanyServiceImpl;
 import com.astha.impl.UserServiceImpl;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -37,7 +39,7 @@ public class UserController  extends HttpServlet{
 		String username = req.getParameter("username");
 		String roles = req.getParameter("roles");
                 String companyId = req.getParameter("companyId");
-        	System.out.println(access+name+ email+ password+ mobile+username+roles);
+        	System.out.println(access+"  "+name+ email+ password+ mobile+username+roles);
 		if(access !=null && access.equals("register" )) {
                     Users register = new Users(name, email, password, 66, username, roles);
                     int status = us.registerUser(register);
@@ -46,26 +48,24 @@ public class UserController  extends HttpServlet{
 		
 		if(access !=null && access.equals("login" )) {
                     Users login = new Users(email, password, username);
-                    // List<Users> user = us.loginUser(login);
-                    //if(user != null) {
+                     List<Users> user = us.loginUser(login);
+                    if(user != null) {
                       String role="";
                       HttpSession session =req.getSession();
-                       // Iterator it = user.listIterator();
-                       // while(it.hasNext()){
-                        //   Users u =(Users)it.next();
-                        //session.setAttribute("username", u.getUsername());
-                       // session.setAttribute("role", u.getRole());
-                      //  session.setAttribute("name", u.getName());
-                      //  session.setAttribute("userId", u.getUserId());
-                      //  role=u.getRole();
-                       // }
-                       session.setAttribute("role", "IT_ADMIN");
-                       session.setAttribute("userId", 1);
+                        Iterator it = user.listIterator();
+                        while(it.hasNext()){
+                           Users u =(Users)it.next();
+                        session.setAttribute("username", u.getUsername());
+                        session.setAttribute("role", u.getRole());
+                        session.setAttribute("name", u.getName());
+                        session.setAttribute("userId", u.getUserId());
+                        role=u.getRole();
+                        }    
                     resp.sendRedirect("homepage.jsp?role="+role);
-                  //  }
-                  //  else {
-                 //      resp.sendRedirect("index.jsp?role=error"); 
-                    //}
+                    }
+                    else {
+                       resp.sendRedirect("index.jsp?role=error"); 
+                    }
                }
                 if(access !=null && access.equals("approve" )) {
                     us.approveCompany(Integer.parseInt(companyId));
@@ -73,23 +73,19 @@ public class UserController  extends HttpServlet{
                     rd.forward(req, resp);
                 }
                  if(access !=null && access.equals("listCompany" )) {
-                     List<Company> list = us.listAllCompany();
-                     req.setAttribute("allCompany", list);
-                    RequestDispatcher rd = req.getRequestDispatcher("homepage.jsp");
+                    List<Company> list = us.listAllCompany();
+                    //List<Company> list = cimpl.listCompanyBySearch(cName, createdBy);
+                    req.setAttribute("list", list);
+                    RequestDispatcher rd = req.getRequestDispatcher("CompanyView.jsp");
                     rd.forward(req, resp);
                 }
-                 if(access !=null && access.equals("logout" )) {
+            if(access !=null && access.equals("logout" )) {
                    HttpSession session =req.getSession();
                      session.removeAttribute("role");
                      session.removeAttribute("username");
                      session.removeAttribute("name");
                      
                      resp.sendRedirect("index.jsp");
-                }
-		
+                }	
 	}
-	
-	
-	
-
 }

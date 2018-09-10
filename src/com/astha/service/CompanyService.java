@@ -17,6 +17,7 @@ public interface CompanyService {
     public int createCompany(Company company);
     public String deleteCompany(int id);
     public List<Company> listCompany(int userId);
+    public List<Company> listCompanyBySearch(String cName, String createdBy);
     
     
 }

@@ -8,6 +8,8 @@ package com.astha.service;
 import com.astha.entity.Company;
 import com.astha.impl.CompanyServiceImpl;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,6 +51,7 @@ public class CompanyController extends HttpServlet  {
            
             if(access !=null && access.equals("getCompany" )) {
 	    List<Company> list = cimpl.listCompany(userId);
+             
             req.setAttribute("list", list);
             RequestDispatcher rd = req.getRequestDispatcher("CompanyView.jsp");
             rd.forward(req, resp);
@@ -64,6 +67,12 @@ public class CompanyController extends HttpServlet  {
             cimpl.deleteCompany(Integer.parseInt(companyId));
             resp.sendRedirect("company?access=getCompany");
            }
+            if(access !=null && access.equals("search" )) {
+	    List<Company> list =cimpl.listCompanyBySearch(cName, createdBy);
+            req.setAttribute("list", list);
+            RequestDispatcher rd = req.getRequestDispatcher("CompanyView.jsp");
+            rd.forward(req, resp);
+            }
         }   
     }
 

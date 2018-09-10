@@ -69,5 +69,24 @@ public class CompanyServiceImpl implements CompanyService{
         List<Company> list =crit.list();
         return list;
      }
+
+    @Override
+    public List<Company> listCompanyBySearch(String cName, String createdBy) {
+       Session ses = Connection.getSessionFactory().openSession();
+        Criteria crit = ses.createCriteria(Company.class);
+        if((!cName.equals("") || cName != null) && (createdBy.equals("") || createdBy == null ))
+        {
+            crit.add(Restrictions.like("createdBy", createdBy));
+        }
+        if((cName.equals("") || cName == null) && (!createdBy.equals("") && createdBy != null )){
+        crit.add(Restrictions.like("createdBy", createdBy));
+        }
+        if((!cName.equals("") || cName != null) && (!createdBy.equals("") && createdBy != null )){
+        crit.add(Restrictions.like("createdBy", createdBy));
+        crit.add(Restrictions.like("createdBy", createdBy));
+        }
+        List<Company> list =crit.list();
+        return list;
+    }
     
 }

@@ -19,18 +19,28 @@
                 </div>
                     
         <div class="wrapper" style="width: 60%;">
-	   <center> <table id="register"  style="align-content: center;width:60%;border:1px solid;" tabindex="0" style="margin-left: 0px">
+            <form action="company" method="post">
+                        <input type="text" name="createdBy">
+                        <input type="text" name="cName">
+                        <input type="submit" value="SEARCH">
+                        <input type="hidden" name="access" value="search">
+                    </form>
+	   <center> <table id="register"  style="align-content: center;width:80%;border:1px solid;" tabindex="0" style="margin-left: 0px">
              <tr ><td>S.no</td>
                  <td>Company Name</td>
-                 <td>Created By</td>
                     <td>Company Address</td>
+                 <td>Created By</td>
                     <td>Actions</td>
                     <td>Actions</td>
                     <td>Actions</td>
              </tr>
              <v:forEach items="${list}" var="c" varStatus="s">
 
-                <tr style="border:1px solid;padding: 10px;margin: 5px;"><td>${c.companyId}</td><td>${c.cName}</td><td>${c.createdBy}</td><td>${c.address}</td>
+                <tr style="border:1px solid;padding: 10px;margin: 5px;">
+                    <td>${c.companyId}</td>
+                    <td>${c.cName}</td>
+                    <td>${c.address}</td>
+                    <td>${c.createdBy}</td>
                     <td>
                         <form id="s" tabindex="502" action="companyEdit.jsp" method="post" >
                             <input type="hidden" name="cName" value="${c.cName}">
@@ -52,13 +62,23 @@
                         </td>
                             <td>
                                 <% if(session.getAttribute("role").equals("IT_ADMIN")){%> 
-                                <form id="d" tabindex="502" action="user" method="post" >
-                                <input type="hidden" name="access" value="approve">
-                                <input type="hidden" name="companyId" value="${c.companyId}">
-                                <div class="submit">
-                                    <input type="submit" value="Approve">
-                                </div>
-                                </form>
+                                
+                                <v:if test = "${c.createdBy != 'IT_ADMIN' && c.approved != 1}">
+                                   <form id="d" tabindex="502" action="user" method="post" >
+                                        <input type="hidden" name="access" value="approve">
+                                        <input type="hidden" name="companyId" value="${c.companyId}">
+                                        <div class="submit">
+                                        <input type="submit" value="Approve">
+                                        </div>
+                                    </form>
+                                </v:if>
+                                <v:if test = "${c.approved == 1}">
+                                Approved
+                               </v:if>
+                              <%} else {%>
+                               <v:if test = "${c.approved == 1}  ">
+                                Approved
+                               </v:if>
                                 <%}%>
                             </td>
                 </tr>
